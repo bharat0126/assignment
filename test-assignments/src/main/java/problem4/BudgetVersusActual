@@ -1,0 +1,12 @@
+SELECT
+  category,
+  SUM(Estimated_Cost) AS Estimated_Cost,
+  SUM(Actual_Cost) AS Actual_Cost
+FROM [dbo].[Estimated] est
+LEFT JOIN (SELECT
+  Task,
+  SUM(Actual_Cost) AS Actual_Cost
+FROM [dbo].[Actual]
+GROUP BY task) AS actual_agg
+  ON actual_agg.Task = est.Budget_Task
+GROUP BY category
