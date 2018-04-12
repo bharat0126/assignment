@@ -1,34 +1,14 @@
 package problem3;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CardDeck {
 
-	private List<Card> cards;
+	private  List<Card> cards;
 
-	private CardDeck(List<Card> cards) throws CardDeckException{
-		List<Card> cardsPart = new ArrayList<Card>();
-		try {
-			for (CardRanksEnum rank : CardRanksEnum.values()) {
-				for (CardSuitTypeEnum suit : CardSuitTypeEnum.values()) {
-					// Create cards
-					Card card=Card.getCardInstance(rank, suit);
-					if(!cards.contains(card)){
-						cardsPart.add(card);
-					}
-
-				}
-			}
-		} catch (CardException e) {
-			throw new CardDeckException(e);
-		}
-		//assign to attribute
-        this.cards=cardsPart;
-		
-	}
-	
-	private CardDeck() throws CardDeckException{
+	public CardDeck() throws CardDeckException{
 		List<Card> cards = new ArrayList<Card>();
 		try {
 			for (CardRanksEnum rank : CardRanksEnum.values()) {
@@ -46,15 +26,28 @@ public class CardDeck {
 		
 	}
 
+	public CardDeck divide(Integer position) throws CardDeckException {
+		if(position < 52 && position >0){
+			if(this.cards !=null ){
+				this.cards=	this.cards.subList(position, this.cards.size());
+			}
+		}else{
+			throw new CardDeckException("Invalid position to split");
+		}
+		return this;
+	}
+	
+	public CardDeck shuffle(){
+		Collections.shuffle(this.cards);
+		return this;
+	}
+	
 	public List<Card> getCards() {
 		return cards;
 	}
 
-	public static CardDeck getFullCardDeckInstance() throws CardDeckException {
-		return new CardDeck();
-	}
-
-	public static CardDeck getCardDeckPartInstance(List<Card> cards) throws CardDeckException {
-		return new CardDeck(cards);
+	@Override
+	public String toString() {
+		return "CardDeck [cards=" + cards + "]";
 	}
 }

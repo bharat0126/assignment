@@ -39,11 +39,14 @@ public class CardDeckService {
 	}
 
 	public static void main(String[] args) throws CardDeckException,CardException {
-		CardDeckService cardPacket = new CardDeckService();
-		CardDeck deck = CardDeck.getFullCardDeckInstance();
+		//CardDeckService cardPacket = new CardDeckService();
+		CardDeck deck = new CardDeck();
+		System.out.println(deck);
+		deck.shuffle();
+		System.out.println(deck);
+		System.out.println(deck.divide(51).getCards().size());
 		
-		
-
+		/*
 		try {
 			System.out.println("no of card in deck -" + deck.getCards().size());
 			System.out.println("no of card in deck per suit-"
@@ -55,13 +58,13 @@ public class CardDeckService {
 			List<Card> cards =new ArrayList<Card>();
 			cards.addAll(cardPacket.getAllCardsBySuit(deck, CardSuitTypeEnum.Club));
 			System.out.println("no of card remain in deck after removing all club cards-"
-					+CardDeck.getCardDeckPartInstance(cards).getCards().size());
+					+deck.divide(13).getCards().size());
 			
 			
 		} catch (CardDeckException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+*/
 	}
 }
